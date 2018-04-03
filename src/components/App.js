@@ -10,6 +10,10 @@ class App extends Component {
     this.state = {
       todos: []
     }
+
+    this.addTodo = this.addTodo.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
+    this.toggleTodo = this.toggleTodo.bind(this);
   }
 
   addTodo(todo) {
@@ -22,14 +26,22 @@ class App extends Component {
     this.setState({ todos: filteredTodos });
   }
 
+  toggleTodo(todoId) {
+    let updatedTodos = this.state.todos.map(todo => 
+      todo.id !== todoId ? todo : Object.assign(todo, {complete: !todo.complete}) 
+    )
+    this.setState({ todos: updatedTodos });
+  }
+
   render() {
     return (
       <div className="App">
         <TodoForm
-          addTodo={this.addTodo.bind(this)} />
+          addTodo={this.addTodo} />
         <TodoList
           todos={this.state.todos} 
-          removeTodo={this.removeTodo.bind(this)} />
+          removeTodo={this.removeTodo} 
+          toggleTodo={this.toggleTodo} />
       </div>
     );
   }

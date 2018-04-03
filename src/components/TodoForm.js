@@ -18,7 +18,8 @@ class TodoForm extends React.Component {
     e.preventDefault();
     this.props.addTodo({ 
       text: this.state.value,
-      id: generateId()
+      id: generateId(),
+      complete: false
     });
     this.state.value = '';
   }

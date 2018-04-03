@@ -3,9 +3,11 @@ import React from 'react';
 const TodoItem = (props) => {
   return (
     <li
-      className='todoItem'>
+      className='todoItem'
+      style={{textDecoration: props.todo.complete ? 'line-through' : 'none'}}
+      onClick={ () => { props.toggleTodo(props.todo.id) } }>
       { props.todo.text }
-      <button onClick={props.removeTodo.bind(null, props.todo.id)}>X</button>
+      <button onClick={ () => { props.removeTodo(props.todo.id) } }>X</button>
     </li>
   )
 }
