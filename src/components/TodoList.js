@@ -3,15 +3,13 @@ import TodoItem from './TodoItem';
 
 const TodoList = (props) => {
 
+  const todos = props.store.getState();
+
   return (
     <ul className='todoList'>
     {
-      props.todos.map(todo => 
-        <TodoItem 
-          key={todo.id} 
-          todo={todo} 
-          removeTodo={props.removeTodo}
-          toggleTodo={props.toggleTodo} />
+      todos.map(todo => 
+        <TodoItem todo={todo} store={props.store} />
       )
     }
     </ul>

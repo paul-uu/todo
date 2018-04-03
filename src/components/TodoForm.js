@@ -1,27 +1,24 @@
 import React from 'react';
 import generateId from '../utilities/generateId';
+import actionCreators from '../actions';
 
 class TodoForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
-
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.addTodo({ 
-      text: this.state.value,
+    const { store } = this.props;
+    store.dispatch(actionCreators.addTodo({
+      text: this.input.value,
       id: generateId(),
       complete: false
-    });
-    this.state.value = '';
+    }))
+
+
+    this.input.value = '';
   }
 
   render() {
@@ -29,7 +26,7 @@ class TodoForm extends React.Component {
       <form onSubmit={this.handleSubmit} className='todoForm'>
         <input 
           type="text" 
-          value={this.state.value} onChange={this.handleChange} 
+          ref={(input) => this.input = input}
           placeholder='Add Todo' />
         <input type="submit" value="Submit" />
       </form>
