@@ -1,6 +1,10 @@
-const ADD_TODO = 'ADD_TODO',
-      REMOVE_TODO = 'REMOVE_TODO',
-      TOGGLE_TODO = 'TOGGLE_TODO';
+import {
+  ADD_TODO,
+  REMOVE_TODO,
+  TOGGLE_TODO,
+  SET_VISIBILITY_FILTER
+} from '../constants';
+
 
 const actionCreators = {
   addTodo: todo => ({
@@ -14,6 +18,10 @@ const actionCreators = {
   toggleTodo: id => ({
     type: TOGGLE_TODO,
     id
+  }),
+  setFilter: (filter) => ({
+    type: SET_VISIBILITY_FILTER,
+    filter
   })
 }
 
