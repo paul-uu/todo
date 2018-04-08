@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import generateId from '../utilities/generateId';
 import actionCreators from '../actions';
 
@@ -10,14 +11,12 @@ class TodoForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { store } = this.props;
-    store.dispatch(actionCreators.addTodo({
+    const { dispatch } = this.props;
+    dispatch(actionCreators.addTodo({
       text: this.input.value,
       id: generateId(),
       complete: false
     }))
-
-
     this.input.value = '';
   }
 
@@ -34,4 +33,4 @@ class TodoForm extends React.Component {
   }
 }
 
-export default TodoForm;
+export default connect()(TodoForm);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import TodoItem from './TodoItem';
 
 import {
@@ -20,12 +21,10 @@ const filterTodos = (todos, filter) => {
 }
 
 const TodoList = (props) => {
-  const state = props.store.getState();
-  const todos = filterTodos(state.todos, state.visibilityFilter);
   return (
     <ul className='todoList'>
     {
-      todos.map(todo => 
+      props.todos.map(todo => 
         <TodoItem todo={todo} key={todo.id} store={props.store} />
       )
     }
@@ -33,4 +32,9 @@ const TodoList = (props) => {
   )
 }
 
-export default TodoList;
+function mapStateToProps(state) {
+  return {
+    todos: filterTodos(state.todos, state.visibilityFilter)
+  }
+}
+export default connect(mapStateToProps)(TodoList);

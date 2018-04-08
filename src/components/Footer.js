@@ -9,15 +9,12 @@ const Footer = (props) => {
       {' '}
       <Link 
         filter={SHOW_ALL}
-        store={props.store}
         text={'All'} />{' '}
       <Link 
         filter={SHOW_ACTIVE}
-        store={props.store}
         text={'Active'} />{' '}
       <Link 
         filter={SHOW_COMPLETED}
-        store={props.store}
         text={'Completed'} />
     </footer>
   )

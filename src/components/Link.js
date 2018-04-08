@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import actionCreators from '../actions';
 
 const Link = (props) => {
   function handleClick() {
-    props.store.dispatch( actionCreators.setFilter( props.filter ) );
+    props.dispatch( actionCreators.setFilter( props.filter ) );
   }
-  const isFilterSelected = props.store.getState().visibilityFilter == props.filter;
+  const isFilterSelected = props.visibilityFilter === props.filter;
 
   return (
     <a 
@@ -18,4 +19,11 @@ const Link = (props) => {
   )
 }
 
-export default Link;
+function mapStateToProps(state, ownProps) {
+  return {
+    text: ownProps.text,
+    filter: ownProps.filter,
+    visibilityFilter: state.visibilityFilter
+  }
+}
+export default connect(mapStateToProps)(Link);
