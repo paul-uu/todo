@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import actionCreators from '../actions';
 
 const Link = (props) => {
@@ -17,6 +18,12 @@ const Link = (props) => {
       {props.text}
     </a>
   )
+}
+
+Link.propTypes = {
+  text: PropTypes.string.isRequired,
+  filter: PropTypes.string.isRequired,
+  visibilityFilter: PropTypes.string.isRequired
 }
 
 function mapStateToProps(state, ownProps) {

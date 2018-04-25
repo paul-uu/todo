@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 
 import {
@@ -30,6 +31,10 @@ const TodoList = (props) => {
     }
     </ul>
   )
+}
+
+TodoList.propTypes = {
+  todos: PropTypes.array.isRequired
 }
 
 function mapStateToProps(state) {
