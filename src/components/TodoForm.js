@@ -1,4 +1,6 @@
 import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
 import generateId from '../utilities/generateId';
 import actionCreators from '../actions';
@@ -6,28 +8,39 @@ import actionCreators from '../actions';
 class TodoForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      todo: ''
+    }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const { dispatch } = this.props;
     dispatch(actionCreators.addTodo({
-      text: this.input.value,
+      text: this.state.todo,
       id: generateId(),
       complete: false
     }))
-    this.input.value = '';
+    this.setState({ todo: '' });
+    
+  }
+
+  handleInputChange(e) {
+    this.setState({ todo: e.target.value });
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className='todoForm'>
-        <input 
-          type="text" 
-          ref={(input) => this.input = input}
-          placeholder='Add Todo' />
-        <input type="submit" value="Submit" />
+      <form className='todoForm'>
+        <TextField 
+          type='text'
+          onChange={this.handleInputChange}
+          value={this.state.todo}
+          floatingLabelText="Add new todo"
+        />
+        <RaisedButton label="Add Todo" onClick={this.handleSubmit} primary={true} />
       </form>
     );
   }
