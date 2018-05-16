@@ -5,11 +5,11 @@
 ### Will include the following:
 * React library for the UI :heavy_check_mark:
 * Redux for state management :heavy_check_mark:
-* Unit Testing
-* Firebase integration
+* Testing
+* Firebase integration for Persistence
 * PWA enhancements
 * Authentication
-* Mobile-first design
+* Mobile-first and Material design
 * CSS pre-processing
 * BEM styled naming convention
 * Accessibility
