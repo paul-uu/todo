@@ -13,10 +13,18 @@ class TodoForm extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.enterKeySubmit = this.enterKeySubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  componentDidMount(){
+    document.addEventListener("keydown", this.enterKeySubmit, false);
+  }
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.enterKeySubmit, false);
+  }
+
+  handleSubmit() {
     const { dispatch } = this.props;
     dispatch(actionCreators.addTodo({
       text: this.state.todo,
@@ -24,16 +32,25 @@ class TodoForm extends React.Component {
       complete: false
     }))
     this.setState({ todo: '' });
-    
+  }
+
+  enterKeySubmit(e) {
+    if(e.keyCode === 13 && this.state.todo) {
+      this.handleSubmit();
+    }
   }
 
   handleInputChange(e) {
     this.setState({ todo: e.target.value });
   }
 
+  onSubmit(e) {
+    e.preventDefault();
+  }
+
   render() {
     return (
-      <form className='todoForm'>
+      <form className='todoForm' onSubmit={this.onSubmit}>
         <TextField 
           type='text'
           onChange={this.handleInputChange}
