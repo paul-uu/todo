@@ -35,9 +35,8 @@ class TodoForm extends React.Component {
   }
 
   enterKeySubmit(e) {
-    if(e.keyCode === 13 && this.state.todo) {
+    if (e.keyCode === 13 && this.state.todo)
       this.handleSubmit();
-    }
   }
 
   handleInputChange(e) {
