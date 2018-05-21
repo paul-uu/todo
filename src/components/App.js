@@ -4,7 +4,6 @@ import Paper from 'material-ui/Paper';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import Footer from './Footer';
-import '../App.css';
 
 const App = (props) => {
   return (

@@ -12,9 +12,14 @@
     "redux": "^3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "sass:watch": "node-sass -w src/styles/scss -o src/styles/css",
+    "sass:build": "node-sass src/styles/scss -o src/styles/css --source-map true",
+    "start": "npm run sass:build && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "node-sass": "^4.9.0"
   }
 }
