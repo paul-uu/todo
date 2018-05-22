@@ -4,6 +4,7 @@
 # production
 .sass-cache/
 src/**/*.css
+/build
 
 # misc
 .DS_STORE

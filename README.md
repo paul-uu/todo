@@ -10,7 +10,7 @@
 * PWA enhancements
 * Authentication
 * Mobile-first and Material design
-* CSS pre-processing
+* CSS pre-processing :heavy_check_mark:
 * BEM styled naming convention
 * Accessibility
 * more, probably

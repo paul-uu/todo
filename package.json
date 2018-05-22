@@ -17,7 +17,8 @@
     "start": "npm run sass:build && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
     "node-sass": "^4.9.0"
