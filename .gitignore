@@ -5,6 +5,7 @@
 .sass-cache/
 src/**/*.css
 /build
+src/firebase/firebaseConfig.js
 
 # misc
 .DS_STORE

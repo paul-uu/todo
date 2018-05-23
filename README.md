@@ -9,6 +9,7 @@
 * Firebase integration for Persistence
 * PWA enhancements
 * Authentication
+* Routing
 * Mobile-first and Material design
 * CSS pre-processing :heavy_check_mark:
 * BEM styled naming convention
