@@ -2,7 +2,9 @@ import {
   ADD_TODO,
   REMOVE_TODO,
   TOGGLE_TODO,
-  SET_VISIBILITY_FILTER
+  SET_VISIBILITY_FILTER,
+  AUTH_USER_SET,
+  USERS_SET
 } from '../constants';
 
 
@@ -22,6 +24,14 @@ const actionCreators = {
   setFilter: (filter) => ({
     type: SET_VISIBILITY_FILTER,
     filter
+  }),
+  setAuthUser: user => ({
+    type: AUTH_USER_SET,
+    user
+  }),
+  setUsers: users => ({
+    type: USERS_SET,
+    users
   })
 }
 
