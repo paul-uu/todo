@@ -8,6 +8,11 @@ export const doCreateUser = (id, username, email) =>
     email
   });
 
+export const updateUsersTodos = (id, todos) =>
+  db.ref(`users/${id}/todos`).set({
+    todos
+  });
+  
 // returns all users from firebase db  
 export const onceGetUsers = () => 
   db.ref('users').once('value');
