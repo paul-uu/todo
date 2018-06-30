@@ -1,5 +1,4 @@
 import React from 'react';
-import AuthUserContext from './AuthUserContext';
 import { firebase } from '../firebase';
 import { connect } from 'react-redux';
 
@@ -13,7 +12,7 @@ const withAuthentication = (Component) => {
       const { onSetAuthUser } = this.props;
 
       firebase.auth.onAuthStateChanged(authUser => { // observer for changes to the user's sign-in state
-        authUser
+      authUser
           ? onSetAuthUser(authUser)
           : onSetAuthUser(null);
       });
@@ -27,7 +26,8 @@ const withAuthentication = (Component) => {
   }
 
   const mapDispatchToProps = (dispatch) => ({
-    onSetAuthUser: (authUser) => dispatch({ type: 'AUTH_USER_SET', authUser }),
+    onSetAuthUser: authUser => 
+      dispatch({ type: 'AUTH_USER_SET', authUser })
   });
 
   return connect(null, mapDispatchToProps)(WithAuthentication);

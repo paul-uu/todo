@@ -1,5 +1,6 @@
 import {
   ADD_TODO,
+  SET_USER_TODOS,
   REMOVE_TODO,
   TOGGLE_TODO,
   SET_VISIBILITY_FILTER,
@@ -13,6 +14,10 @@ const actionCreators = {
     type: ADD_TODO,
     todo
   }),
+  setUserTodos: todos => ({
+    type: SET_USER_TODOS,
+    todos
+  }),
   removeTodo: id => ({
     type: REMOVE_TODO,
     id
@@ -25,10 +30,12 @@ const actionCreators = {
     type: SET_VISIBILITY_FILTER,
     filter
   }),
-  setAuthUser: user => ({
-    type: AUTH_USER_SET,
-    user
-  }),
+  setAuthUser: user => {
+    return {
+      type: AUTH_USER_SET,
+      user
+    }
+  },
   setUsers: users => ({
     type: USERS_SET,
     users

@@ -1,9 +1,11 @@
-import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO } from '../constants';
+import { ADD_TODO, SET_USER_TODOS, REMOVE_TODO, TOGGLE_TODO } from '../constants';
 
 function todos(state = [], action) {
   switch(action.type) {
     case ADD_TODO:
       return [...state, action.todo];
+    case SET_USER_TODOS:
+      return action.todos;
     case REMOVE_TODO:
       return state.filter(todo => todo.id !== action.id);
     case TOGGLE_TODO:

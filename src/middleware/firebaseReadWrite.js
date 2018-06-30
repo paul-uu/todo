@@ -1,5 +1,5 @@
 import { db } from '../firebase';
-import { ADD_TODO } from '../constants';
+import { ADD_TODO, AUTH_USER_SET } from '../constants';
 
 export const firebaseReadWrite = store => next => action => {
 
@@ -7,9 +7,9 @@ export const firebaseReadWrite = store => next => action => {
   const uid = (state.session.authUser && state.session.authUser.uid)
     ? state.session.authUser.uid
     : null;
-  
+
   if (action.type === ADD_TODO && uid !== null) {
-    db.updateUsersTodos(uid, [...state.todos, action.todo ]);
+    db.updateUserTodos(uid, [...state.todos, action.todo ]);
     return next(action);
   }
   

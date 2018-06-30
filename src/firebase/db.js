@@ -8,7 +8,17 @@ export const doCreateUser = (id, username, email) =>
     email
   });
 
-export const updateUsersTodos = (id, todos) =>
+  
+export const getUserTodos = (id) =>
+  db.ref(`users/${id}/todos`).once('value');
+
+export const subscribeToUserTodos = (id) => // todo
+  //db.ref(`users/${id}/todos/todos`).on('value', snapshot => {
+  db.ref(`users/${id}`).on('value', snapshot => {
+    console.log(snapshot);
+  });
+
+export const updateUserTodos = (id, todos) =>
   db.ref(`users/${id}/todos`).set({
     todos
   });
