@@ -21,3 +21,6 @@ This project is my attempt at learning and combining a number of Frontend tools,
 
 ### How?
 Todo: list the resources and things I've leanred while implementing the features listed above
+
+#### User Authentication via Firebase [A Complete Firebase in React Authentication Tutorial  - Robin Wieruch](https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/)
+This comprehensive tutorial explained in detail how to go about setting up user authentication, and sign up/in/out with a React/Firebase application. More specifically, some basic Firebase Authentication and Real Time Database methods, and application structure for handling authentication and authorization regarding component rendering, utilizing React Router, higher order components and React's Context API.
