@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import actionCreators from '../actions';
+import { setFilter } from '../actions';
 
 const Link = (props) => {
   function handleClick() {
-    props.dispatch( actionCreators.setFilter( props.filter ) );
+    props.dispatch(setFilter( props.filter ) );
   }
   const isFilterSelected = props.visibilityFilter === props.filter;
 

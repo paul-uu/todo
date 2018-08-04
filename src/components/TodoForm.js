@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
 import generateId from '../utilities/generateId';
-import actionCreators from '../actions';
+import { addTodo } from '../actions';
 
 class TodoForm extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class TodoForm extends React.Component {
 
   handleSubmit() {
     const { dispatch } = this.props;
-    dispatch(actionCreators.addTodo({
+    dispatch(addTodo({
       text: this.state.todo,
       id: generateId(),
       complete: false

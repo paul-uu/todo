@@ -12,6 +12,9 @@ export const doCreateUser = (id, username, email) =>
 export const getUserTodos = (id) =>
   db.ref(`users/${id}/todos`).once('value');
 
+export const fetchUserTodos = id => 
+  db.ref(`users/${id}/todos`).once('value');
+
 export const subscribeToUserTodos = (id) => // todo
   //db.ref(`users/${id}/todos/todos`).on('value', snapshot => {
   db.ref(`users/${id}`).on('value', snapshot => {

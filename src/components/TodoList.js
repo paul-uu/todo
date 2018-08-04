@@ -25,7 +25,7 @@ const TodoList = (props) => {
   return (
     <ul className='todoList'>
     {
-      props.todos.map(todo => 
+      (props.todos.length > 0) && props.todos.map(todo => 
         <TodoItem todo={todo} key={todo.id} store={props.store} />
       )
     }

@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
-import { USERS_SET } from '../constants';
-import actionCreators from '../actions';
+import { setUsers } from '../actions';
 
 class HomePage extends Component {
   constructor(props) {
@@ -44,7 +43,7 @@ const mapStateToProps = state => ({
   users: state.user.users
 });
 const mapDispatchToProps = dispatch => ({
-  onSetUsers: users => dispatch(actionCreators.setUsers(users))
+  onSetUsers: users => dispatch(setUsers(users))
 });
 
 const authCondition = (authUser) => !!authUser;
