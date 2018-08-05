@@ -5,17 +5,12 @@ import { userAuthenticated } from '../actions';
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
-    constructor(props) {
-      super(props);
-    }
  
     componentDidMount() {
-      const { onSetAuthUser } = this.props;
-
       firebase.auth.onAuthStateChanged(authUser => { // observer for changes to the user's sign-in state
-      authUser
-          ? onSetAuthUser(authUser)
-          : onSetAuthUser(null);
+        authUser
+            ? this.props.onSetAuthUser(authUser)
+            : this.props.onSetAuthUser(null);
       });
     }
 
