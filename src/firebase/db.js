@@ -21,10 +21,20 @@ export const subscribeToUserTodos = (id) => // todo
     console.log(snapshot);
   });
 
-export const updateUserTodos = (id, todos) =>
+export const writeUserTodosToDb = (id, todos) =>
   db.ref(`users/${id}/todos`).set({
     todos
   });
+
+
+export const syncTodosLocalToDb = (id, localTodos) => {
+  fetchUserTodos(id)
+    .then(snapshot => {
+      let dbTodos = snapshot.val().todos;
+      if (dbTodos !== localTodos)
+      writeUserTodosToDb(id, localTodos);
+    });
+}
   
 // returns all users from firebase db  
 export const onceGetUsers = () => 
