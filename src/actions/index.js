@@ -4,8 +4,7 @@ import {
   REMOVE_TODO,
   TOGGLE_TODO,
   SET_VISIBILITY_FILTER,
-  AUTH_USER_SET,
-  USERS_SET
+  AUTH_USER_SET
 } from '../constants';
 import { db } from '../firebase';
 
