@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import SignOutButton from './SignOut';
 import * as routes from '../constants/routes';
 
-const Navigation = ({ authUser }) =>
+const Navigation = ({ authUser, todosQty }) =>
   <div>
   {
     authUser 
-      ? <NavigationAuth />
+      ? <NavigationAuth todosQty={todosQty} />
       : <NavigationNonAuth />
   }
   </div>
 
-const NavigationAuth = () =>
+const NavigationAuth = props =>
   <ul>
     <ul>
-      <li><Link to={routes.MYTODOS}>My Todos</Link></li>
+      <li><Link to={routes.MYTODOS}>My Todos ({props.todosQty})</Link></li>
       <li><Link to={routes.ACCOUNT}>Account</Link></li>
       <li><SignOutButton /></li>
     </ul>
@@ -29,7 +29,8 @@ const NavigationNonAuth = () =>
   </ul>
 
 const mapStateToProps = state => ({
-  authUser: state.session.authUser
-})
+  authUser: state.session.authUser,
+  todosQty: state.todos.length
+});
 
 export default connect(mapStateToProps)(Navigation);
