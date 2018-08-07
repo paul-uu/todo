@@ -36,11 +36,6 @@ export const setAuthUser = user => {
     user
   }
 };
-export const setUsers = users => ({
-  type: USERS_SET,
-  users
-});
-
 
 export const userAuthenticated = user => {
   return dispatch => {

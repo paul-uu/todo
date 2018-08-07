@@ -31,7 +31,7 @@ class SignInForm extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = (event) => {
+  onSubmit = e => {
     const {
       email,
       password,
@@ -44,13 +44,13 @@ class SignInForm extends Component {
     auth.doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState(() => ({ ...INITIAL_STATE }));
-        history.push(routes.HOME);
+        history.push(routes.LANDING);
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
       });
 
-    event.preventDefault();
+    e.preventDefault();
   }
 
   render() {

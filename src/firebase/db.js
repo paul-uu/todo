@@ -35,7 +35,3 @@ export const syncTodosLocalToDb = (id, localTodos) => {
       writeUserTodosToDb(id, localTodos);
     });
 }
-  
-// returns all users from firebase db  
-export const onceGetUsers = () => 
-  db.ref('users').once('value');
