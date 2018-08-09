@@ -22,6 +22,10 @@ const NavigationAuth = props =>
     </ul>
   </ul>
 
+NavigationAuth.propTypes = {
+  todosQty: PropTypes.number
+}
+
 const NavigationNonAuth = () => 
   <ul>
     <li><Link to={routes.MYTODOS}>My Todos</Link></li>

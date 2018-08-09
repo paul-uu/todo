@@ -62,4 +62,8 @@ class TodoForm extends React.Component {
   }
 }
 
+TodoForm.propTypes = {
+  dispatch: PropTypes.func.isRequired
+}
+
 export default connect()(TodoForm);
