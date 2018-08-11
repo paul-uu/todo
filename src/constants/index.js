@@ -7,4 +7,3 @@ export const SHOW_ALL = 'SHOW_ALL';
 export const SHOW_ACTIVE=  'SHOW_ACTIVE';
 export const SHOW_COMPLETED = 'SHOW_COMPLETED';
 export const AUTH_USER_SET = 'AUTH_USER_SET';
-export const USERS_SET = 'USERS_SET';
