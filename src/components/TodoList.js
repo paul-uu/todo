@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
+import VisibilityFilter from './VisibilityFilter'
 
 import {
   SHOW_ALL,
@@ -21,15 +22,18 @@ const filterTodos = (todos, filter) => {
   }
 }
 
-const TodoList = (props) => {
+const TodoList = props => {
   return (
-    <ul className='todoList'>
-    {
-      (props.todos.length > 0) && props.todos.map(todo => 
-        <TodoItem todo={todo} key={todo.id} store={props.store} />
-      )
-    }
-    </ul>
+    <div>
+      <ul className='todoList'>
+      {
+        (props.todos.length > 0) && props.todos.map(todo => 
+          <TodoItem todo={todo} key={todo.id} store={props.store} />
+        )
+      }
+      </ul>
+      <VisibilityFilter />
+    </div>
   )
 }
 

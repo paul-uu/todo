@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
 import generateId from '../utilities/generateId';
 import { addTodo } from '../actions';
+import PropTypes from 'prop-types';
 
 class TodoForm extends React.Component {
   constructor(props) {
