@@ -1,11 +1,12 @@
 import { createStore, applyMiddleware } from 'redux';
 import todoApp from './reducers';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import { db } from './firebase';
 
 const store = createStore(
   todoApp, 
-  applyMiddleware(thunk)
+  applyMiddleware(thunk, logger)
 );
 
 let currentState = store.getState();
