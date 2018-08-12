@@ -8,18 +8,25 @@ import {
 } from '../constants';
 
 const VisibilityFilter = props => {
-  console.log(props.selectedFilter);
   return (
     <div>
-      <a href='#' onClick={props.setFilter.bind(null, SHOW_ACTIVE)}>Show Active</a>
-      <a href='#' onClick={props.setFilter.bind(null, SHOW_COMPLETED)}>Show Completed</a>
-      <a href='#' onClick={props.setFilter.bind(null, SHOW_ALL)}>Show All</a>
+      <a href='#' 
+      style={{textDecoration: props.selectedFilter === SHOW_ALL ? 'underline' : 'none'}} 
+      onClick={props.setFilter.bind(null, SHOW_ALL)}>Show All</a>
+
+      <a href='#' 
+      style={{textDecoration: props.selectedFilter === SHOW_ACTIVE ? 'underline' : 'none'}} 
+      onClick={props.setFilter.bind(null, SHOW_ACTIVE)}>Show Active</a>
+
+      <a href='#' 
+      style={{textDecoration: props.selectedFilter === SHOW_COMPLETED ? 'underline' : 'none'}} 
+      onClick={props.setFilter.bind(null, SHOW_COMPLETED)}>Show Completed</a>
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  selectedFilter: state.filter
+  selectedFilter: state.visibilityFilter
 });
 
 const mapDispatchToProps = dispatch => ({
