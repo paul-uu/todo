@@ -52,7 +52,8 @@ export const fetchAuthUserTodos = user => {
     if (user) {
       return db.fetchUserTodos(user.uid)
         .then(snapshot => snapshot.val())
-        .then(todos => dispatch(setUserTodos(todos.todos)));
+        .then(todos => 
+          todos && dispatch(setUserTodos(todos.todos)));
     } else {
       dispatch(setUserTodos([]));
     }
