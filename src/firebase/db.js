@@ -30,7 +30,8 @@ export const writeUserTodosToDb = (id, todos) =>
 export const syncTodosLocalToDb = (id, localTodos) => {
   fetchUserTodos(id)
     .then(snapshot => {
-      let dbTodos = snapshot.val().todos;
+
+      let dbTodos = snapshot.val() ? snapshot.val().todos : null;
       if (dbTodos !== localTodos)
       writeUserTodosToDb(id, localTodos);
     });
