@@ -28,9 +28,8 @@ export const writeUserTodosToDb = (id, todos) =>
 
 
 export const syncTodosLocalToDb = (id, localTodos) => {
-  fetchUserTodos(id)
+  fetchUserTodos(id) // compare local and remote todos
     .then(snapshot => {
-
       let dbTodos = snapshot.val() ? snapshot.val().todos : null;
       if (dbTodos !== localTodos)
       writeUserTodosToDb(id, localTodos);
