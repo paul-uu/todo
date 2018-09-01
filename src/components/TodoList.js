@@ -22,7 +22,7 @@ const filterTodos = (todos, filter) => {
   }
 }
 
-const TodoList = props => {
+export const TodoList = props => {
   return (
     <div>
       <ul className='todoList'>
