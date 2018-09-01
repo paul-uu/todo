@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { setFilter } from '../actions';
+import Link from './Link';
 import {
   SHOW_ALL,
   SHOW_ACTIVE,
@@ -10,27 +9,11 @@ import {
 const VisibilityFilter = props => {
   return (
     <div>
-      <a href='#' 
-      style={{textDecoration: props.selectedFilter === SHOW_ALL ? 'underline' : 'none'}} 
-      onClick={props.setFilter.bind(null, SHOW_ALL)}>Show All</a>
-
-      <a href='#' 
-      style={{textDecoration: props.selectedFilter === SHOW_ACTIVE ? 'underline' : 'none'}} 
-      onClick={props.setFilter.bind(null, SHOW_ACTIVE)}>Show Active</a>
-
-      <a href='#' 
-      style={{textDecoration: props.selectedFilter === SHOW_COMPLETED ? 'underline' : 'none'}} 
-      onClick={props.setFilter.bind(null, SHOW_COMPLETED)}>Show Completed</a>
+      <Link text='Show All' filter={SHOW_ALL} />
+      <Link text='Show Active' filter={SHOW_ACTIVE} />
+      <Link text='Show Completed' filter={SHOW_COMPLETED} />
     </div>
   )
 }
 
-const mapStateToProps = state => ({
-  selectedFilter: state.visibilityFilter
-});
-
-const mapDispatchToProps = dispatch => ({
-  setFilter: filter => dispatch(setFilter(filter))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VisibilityFilter);
+export default VisibilityFilter;

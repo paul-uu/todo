@@ -8,12 +8,12 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete';
 const TodoItem = (props) => {
   return (
     <li
-      className='todoItem'
+      className='todo-item'
       style={{textDecoration: props.todo.complete ? 'line-through' : 'none'}}
       onClick={() => props.dispatch(toggleTodo(props.todo.id))} >
       { props.todo.text }
       <IconButton 
-        className='IconButton'
+        className='icon-button'
         tooltip='Delete Todo'
         tooltipPosition='bottom-center'
         onClick={() => props.dispatch(removeTodo(props.todo.id))} 

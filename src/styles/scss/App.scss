@@ -39,10 +39,11 @@ body {
   to { transform: rotate(360deg); }
 }
 
-.todoItem {
+.todo-item {
   list-style: none;
+  cursor: pointer;
 }
 
-.IconButton {
+.icon-button {
   vertical-align: middle;
 }
