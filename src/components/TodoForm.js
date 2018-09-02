@@ -1,6 +1,6 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import generateId from '../utilities/generateId';
 import { addTodo } from '../actions';
@@ -52,12 +52,11 @@ class TodoForm extends React.Component {
     return (
       <form className='todoForm' onSubmit={this.onSubmit}>
         <TextField 
-          type='text'
           onChange={this.handleInputChange}
           value={this.state.todo}
-          floatingLabelText="Add new todo"
+          label="Add new todo"
         />
-        <RaisedButton label="Add Todo" onClick={this.handleSubmit} primary={true} />
+        <Button variant='contained' onClick={this.handleSubmit} color='default'>Add Todo</Button>
       </form>
     );
   }

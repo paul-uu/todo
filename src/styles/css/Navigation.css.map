@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "Navigation.css",
+	"sources": [
+		"../scss/Navigation.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,IAAI,CAAC,EAAE,CAAC;EACN,eAAe,EAAE,IAAI,GACtB"
+}

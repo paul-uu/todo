@@ -6,7 +6,7 @@ import * as routes from '../constants/routes';
 import PropTypes from 'prop-types';
 
 const Navigation = ({ authUser, todosQty }) =>
-  <nav class='nav'>
+  <nav className='nav'>
   {
     authUser 
       ? <NavigationAuth todosQty={todosQty} />

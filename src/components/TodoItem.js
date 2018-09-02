@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { toggleTodo, removeTodo } from '../actions';
-import IconButton from 'material-ui/IconButton';
-import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 
 const TodoItem = (props) => {
   return (
@@ -17,8 +17,8 @@ const TodoItem = (props) => {
         <span>{ props.todo.text }</span>
         <IconButton 
           className='icon-button'
+          color='default'
           tooltip='Delete Todo'
-          tooltipPosition='bottom-center'
           onClick={() => props.dispatch(removeTodo(props.todo.id))} 
         >
           <DeleteIcon />
