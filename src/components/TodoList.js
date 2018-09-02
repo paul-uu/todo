@@ -25,7 +25,7 @@ const filterTodos = (todos, filter) => {
 export const TodoList = props => {
   return (
     <div>
-      <ul className='todoList'>
+      <ul className='todo-list'>
       {
         (props.todos.length > 0) && props.todos.map(todo => 
           <TodoItem todo={todo} key={todo.id} />

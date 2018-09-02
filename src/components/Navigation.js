@@ -6,13 +6,13 @@ import * as routes from '../constants/routes';
 import PropTypes from 'prop-types';
 
 const Navigation = ({ authUser, todosQty }) =>
-  <div>
+  <nav class='nav'>
   {
     authUser 
       ? <NavigationAuth todosQty={todosQty} />
       : <NavigationNonAuth />
   }
-  </div>
+  </nav>
 
 const NavigationAuth = props =>
   <ul>

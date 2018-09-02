@@ -18,7 +18,7 @@ import withAuthentication from './withAuthentication';
 const App = () =>
   <Router>
     <MuiThemeProvider>
-      <div>
+      <div className='App'>
         <Navigation />
         <hr/>
 

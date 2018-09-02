@@ -1,0 +1,14 @@
+/* TodoItem */
+.todo-item {
+  list-style: none;
+  cursor: pointer;
+  margin-bottom: 15px;
+
+  .Paper {
+    padding: 0 15px;
+  }
+
+  .icon-button {
+    vertical-align: middle;
+  }
+}
