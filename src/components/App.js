@@ -17,7 +17,7 @@ import withAuthentication from './withAuthentication';
 const App = () =>
   <Router>
     <div className='App'>
-    
+
       <Navigation />
       <hr/>
 

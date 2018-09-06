@@ -3,7 +3,7 @@ import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 
 const MyTodos = props =>
-  <div>
+  <div className='content-container'>
     <h1>My Todo List</h1>
     <TodoForm />
     <TodoList />

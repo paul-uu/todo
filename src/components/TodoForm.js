@@ -50,7 +50,7 @@ class TodoForm extends React.Component {
 
   render() {
     return (
-      <form className='todoForm' onSubmit={this.onSubmit}>
+      <form className='todo-form' onSubmit={this.onSubmit}>
         <TextField 
           onChange={this.handleInputChange}
           value={this.state.todo}

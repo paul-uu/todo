@@ -1,3 +1,23 @@
-.nav li {
-  list-style-type: none;
+@import 'variables';
+
+
+.nav {
+  width: $main-container-width;
+  margin: 15px auto;
+  position: relative;
+
+  li {
+    list-style-type: none;
+    display: inline-block
+  }
+  li:not(:last-child) {
+    margin-right: 15px;
+  }
+
+  .btn--signout {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+  }
 }

@@ -9,9 +9,9 @@ import {
 const VisibilityFilter = props => {
   return (
     <div className='visibility-filter'>
-      <FilterLink className='visibility-filter--link' text='Show All' filter={SHOW_ALL} />
-      <FilterLink className='visibility-filter--link' text='Show Active' filter={SHOW_ACTIVE} />
-      <FilterLink className='visibility-filter--link' text='Show Completed' filter={SHOW_COMPLETED} />
+      <FilterLink className='visibility-filter__link' text='Show All' filter={SHOW_ALL} />
+      <FilterLink className='visibility-filter__link' text='Show Active' filter={SHOW_ACTIVE} />
+      <FilterLink className='visibility-filter__link' text='Show Completed' filter={SHOW_COMPLETED} />
     </div>
   )
 }

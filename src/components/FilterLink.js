@@ -7,13 +7,12 @@ const FilterLink = (props) => {
   function handleClick() {
     props.dispatch(setFilter( props.filter ) );
   }
-  const isFilterSelected = props.visibilityFilter === props.filter;
+  const isFilterSelected = props.visibilityFilter === props.filter ? 'selected' : '';
 
   return (
     <a 
       href='#' 
-      className='link filter-link' 
-      style={{textDecoration: isFilterSelected ? 'underline' : 'none'}}
+      className={'link visibility-filter__link ' + isFilterSelected}
       onClick={handleClick} >
       {props.text}
     </a>
