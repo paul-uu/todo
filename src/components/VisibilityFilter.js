@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from './Link';
+import FilterLink from './FilterLink';
 import {
   SHOW_ALL,
   SHOW_ACTIVE,
@@ -8,10 +8,10 @@ import {
 
 const VisibilityFilter = props => {
   return (
-    <div>
-      <Link text='Show All' filter={SHOW_ALL} />
-      <Link text='Show Active' filter={SHOW_ACTIVE} />
-      <Link text='Show Completed' filter={SHOW_COMPLETED} />
+    <div className='visibility-filter'>
+      <FilterLink className='visibility-filter--link' text='Show All' filter={SHOW_ALL} />
+      <FilterLink className='visibility-filter--link' text='Show Active' filter={SHOW_ACTIVE} />
+      <FilterLink className='visibility-filter--link' text='Show Completed' filter={SHOW_COMPLETED} />
     </div>
   )
 }

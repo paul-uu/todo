@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "SignOut.css",
+	"sources": [
+		"../scss/SignOut.scss"
+	],
+	"names": [],
+	"mappings": ""
+}

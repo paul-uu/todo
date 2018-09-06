@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setFilter } from '../actions';
 
-const Link = (props) => {
+const FilterLink = (props) => {
   function handleClick() {
     props.dispatch(setFilter( props.filter ) );
   }
@@ -12,7 +12,7 @@ const Link = (props) => {
   return (
     <a 
       href='#' 
-      className='link' 
+      className='link filter-link' 
       style={{textDecoration: isFilterSelected ? 'underline' : 'none'}}
       onClick={handleClick} >
       {props.text}
@@ -20,7 +20,7 @@ const Link = (props) => {
   )
 }
 
-Link.propTypes = {
+FilterLink.propTypes = {
   text: PropTypes.string.isRequired,
   filter: PropTypes.string.isRequired,
   visibilityFilter: PropTypes.string.isRequired
@@ -33,4 +33,4 @@ function mapStateToProps(state, ownProps) {
     visibilityFilter: state.visibilityFilter
   }
 }
-export default connect(mapStateToProps)(Link);
+export default connect(mapStateToProps)(FilterLink);

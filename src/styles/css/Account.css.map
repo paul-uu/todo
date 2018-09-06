@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "Account.css",
+	"sources": [
+		"../scss/Account.scss"
+	],
+	"names": [],
+	"mappings": ""
+}
