@@ -10,12 +10,12 @@ class TodoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todo: ''
+      todo: '',
+      hasError: false
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.enterKeySubmit = this.enterKeySubmit.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount(){
@@ -25,14 +25,20 @@ class TodoForm extends React.Component {
     document.removeEventListener("keydown", this.enterKeySubmit, false);
   }
 
-  handleSubmit() {
-    const { dispatch } = this.props;
-    dispatch(addTodo({
-      text: this.state.todo,
-      id: generateId(),
-      complete: false
-    }))
-    this.setState({ todo: '' });
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.state.todo.length > 0) {
+      const { dispatch } = this.props;
+      dispatch(addTodo({
+        text: this.state.todo,
+        id: generateId(),
+        complete: false
+      }))
+      this.setState({ todo: '', hasError: false });
+    }
+    else {
+      this.setState({ hasError: true })
+    }
   }
 
   enterKeySubmit(e) {
@@ -41,22 +47,24 @@ class TodoForm extends React.Component {
   }
 
   handleInputChange(e) {
-    this.setState({ todo: e.target.value });
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
+    this.setState({ 
+      todo: e.target.value,
+      hasError: false
+    });
   }
 
   render() {
+    const hasError = this.state.hasError;
     return (
-      <form className='todo-form' onSubmit={this.onSubmit}>
+      <form className='todo-form' onSubmit={this.handleSubmit}>
         <TextField 
+          error={hasError}
           onChange={this.handleInputChange}
           value={this.state.todo}
-          label="Add new todo"
+          label={hasError ? 'Please add a new todo' : 'Add new todo'}
+          margin='normal'
         />
-        <Button variant='contained' onClick={this.handleSubmit} color='default'>Add Todo</Button>
+        <Button type='submit' variant='contained' color='default'>Add Todo</Button>
       </form>
     );
   }

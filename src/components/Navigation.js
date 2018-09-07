@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import SignOutButton from './SignOut';
+import SignOutLink from './SignOut';
 import * as routes from '../constants/routes';
 import PropTypes from 'prop-types';
 
@@ -22,7 +22,7 @@ const NavigationAuth = props => {
         <li><Link className={'link ' + (path === routes.MYTODOS ? 'selected' : '')} to={routes.MYTODOS}>My Todos ({props.todosQty})</Link></li>
         <li><Link className={'link ' + (path === routes.ACCOUNT ? 'selected' : '')} to={routes.ACCOUNT}>Account</Link></li>
       </ul>
-      <SignOutButton />
+      <SignOutLink />
     </div>
   )
 };
@@ -36,10 +36,12 @@ NavigationAuth.propTypes = {
 const NavigationNonAuth = props => {
   const path = props.location.pathname;
   return (
-    <ul>
-      <li><Link className={'link ' + (path === routes.MYTODOS ? 'selected' : '')} to={routes.MYTODOS}>My Todos</Link></li>
-      <li><Link className={'link ' + (path === routes.SIGN_IN ? 'selected' : '')} to={routes.SIGN_IN}>Sign In</Link></li>
-    </ul>
+    <div>
+      <ul>
+        <li><Link className={'link ' + (path === routes.MYTODOS ? 'selected' : '')} to={routes.MYTODOS}>My Todos</Link></li>
+      </ul>
+      <Link className={'link sign-in ' + (path === routes.SIGN_IN ? 'selected' : '')} to={routes.SIGN_IN}>Sign In</Link>
+    </div>
   )
 }
 const NavigationNonAuthWithRouter = withRouter(NavigationNonAuth);

@@ -2,8 +2,9 @@
 	"version": 3,
 	"file": "shared.css",
 	"sources": [
-		"../scss/shared.scss"
+		"../scss/shared.scss",
+		"../scss/variables.scss"
 	],
 	"names": [],
-	"mappings": "AAAA,AAAA,kBAAkB,CAAC;EACjB,KAAK,EAAE,gBAAgB;EACvB,MAAM,EAAE,gBAAgB,GACzB"
+	"mappings": "AAEA,AAAA,kBAAkB,CAAC;EACjB,KAAK,ECHgB,iBAAiB;EDItC,MAAM,EAAE,gBAAgB,GACzB;;AAED,AAAA,KAAK,CAAC;EACJ,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,IAAI,GACtB;;AACD,AAAA,KAAK,AAAA,MAAM,CAAC;EACV,eAAe,EAAE,SAAS,GAC3B;;AACD,AAAA,KAAK,AAAA,IAAK,CAAA,WAAW,EAAE;EACrB,YAAY,EAAE,IAAI,GACnB;;AACD,AAAA,KAAK,AAAA,SAAS,CAAC;EACb,WAAW,EAAE,IAAI,GAClB"
 }
