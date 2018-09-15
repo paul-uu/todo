@@ -1,5 +1,5 @@
-import * as actions from '../../actions';
-import * as actionTypes from '../../constants';
+import * as actions from '../../../actions';
+import * as actionTypes from '../../../constants';
 
 it('should create a todo action', () => {
   const todo = {

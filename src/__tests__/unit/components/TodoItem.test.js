@@ -1,9 +1,9 @@
 import React from 'react';
-import TodoItem from '../../components/TodoItem';
+import TodoItem from '../../../components/TodoItem';
 import { shallow } from 'enzyme';
-import store from '../../store';
+import store from '../../../store';
 
-import generateId from '../../utilities/generateId';
+import generateId from '../../../utilities/generateId';
 
 const todoId = generateId();
 const todo = {

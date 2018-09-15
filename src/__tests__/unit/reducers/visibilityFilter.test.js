@@ -1,5 +1,5 @@
-import reducer from '../../reducers/visibilityFilter';
-import { SET_VISIBILITY_FILTER, SHOW_ALL, SHOW_ACTIVE } from '../../constants';
+import reducer from '../../../reducers/visibilityFilter';
+import { SET_VISIBILITY_FILTER, SHOW_ALL, SHOW_ACTIVE } from '../../../constants';
 
 const initialState = SHOW_ALL;
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import ConnectedTodoList, { TodoList } from '../../components/TodoList';
-import TodoItem from '../../components/TodoItem';
-import VisibilityFilter from '../../components/VisibilityFilter';
+import ConnectedTodoList, { TodoList } from '../../../components/TodoList';
+import TodoItem from '../../../components/TodoItem';
+import VisibilityFilter from '../../../components/VisibilityFilter';
 import { shallow } from 'enzyme';
-import generateId from '../../utilities/generateId';
+import generateId from '../../../utilities/generateId';
 import { Provider } from 'react-redux';
-import store from '../../store';
+import store from '../../../store';
 
 const todos = [
   {

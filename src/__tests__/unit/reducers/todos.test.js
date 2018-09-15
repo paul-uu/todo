@@ -1,5 +1,5 @@
-import reducer from '../../reducers/todos';
-import * as actionTypes from '../../constants';
+import reducer from '../../../reducers/todos';
+import * as actionTypes from '../../../constants';
 
 const initialState = [];
 const todoId = 123;

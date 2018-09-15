@@ -1,5 +1,5 @@
-import reducer from '../../reducers/session';
-import { AUTH_USER_SET } from '../../constants';
+import reducer from '../../../reducers/session';
+import { AUTH_USER_SET } from '../../../constants';
 
 const initialState = null;
 const firebaseUser = {
