@@ -33,7 +33,7 @@ class TodoForm extends React.Component {
         text: this.state.todo,
         id: generateId(),
         complete: false
-      }))
+      }));
       this.setState({ todo: '', hasError: false });
     }
     else {
@@ -58,6 +58,7 @@ class TodoForm extends React.Component {
     return (
       <form className='todo-form' onSubmit={this.handleSubmit}>
         <TextField 
+          className='todo-form__input'
           error={hasError}
           onChange={this.handleInputChange}
           value={this.state.todo}

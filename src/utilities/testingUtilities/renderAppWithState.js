@@ -57,7 +57,7 @@ describe('Submitting a form', () => {
 
   const submitButton = wrapper.find('[type="submit"]');
   
-  const flushAlPromises = () => new Promise(resolve => setImmediate(resolve));
+  const flushAllPromises = () => new Promise(resolve => setImmediate(resolve));
   it('sends the data and shows the confirmation page' () => {
     nock('https://myapp.con/api').post('/12345').reply(200);
     submitButton.simulate('click');
