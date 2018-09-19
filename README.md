@@ -10,11 +10,11 @@
 * PWA enhancements
 * User Authentication :heavy_check_mark:
 * Routing :heavy_check_mark:
-* Mobile-first and Material design
-* CSS pre-processing :heavy_check_mark:
+* Mobile-first and Material UI design
+* CSS pre-processing with SASS :heavy_check_mark:
 * BEM styled naming convention
 * Accessibility
-* more, probably
+* Type Checking via Typescript
 
 ### Why?
 This project is my attempt at learning and combining a number of Frontend tools, techniques, and best practices. And what better use case than the iconic, yet humble Todo App. 
@@ -29,5 +29,9 @@ This comprehensive tutorial explained in detail how to go about setting up user 
 
 #### Testing Redux Actions, Reducers, and Connected Components
 [Redux - Writing Tests](https://redux.js.org/recipes/writingtests)
-
 This tutorial guided my first steps into unit testing, using jest to test individual action creators, reducers, and connected components.
+
+#### Integration Testing
+[Integratin Tests in Redux Apps](https://hackernoon.com/low-effort-high-value-integration-tests-in-redux-apps-d3a590bd9fd5)
+[Guide to React & Redux (Integration) Testing](https://blog.pragmatists.com/genuine-guide-to-testing-react-redux-applications-6f3265c11f63)
+These articles/tutorials served as a lite introduction to using Enzyme, as well introducing the concept of integration testing and it's application to a React/Redux based application. 
