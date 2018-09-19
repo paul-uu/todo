@@ -21,31 +21,23 @@ let wrapper = mount(
 );
 const todoForm = wrapper.find('.todo-form');
 const todoInput = wrapper.find('input[type="text"]');
-const todoButton = wrapper.find('button[type="submit"]');
 
+it('should delete a todo from redux state and UI', () => {
 
-it('should render the todo form', () => {
-  expect(todoForm.length).toBe(1);
-  expect(todoInput.length).toBe(1);
-  expect(todoButton.length).toBe(1);
-});
-
-
-it('should add a todo to redux state and UI', () => {
+  // add todo
   todoInput.simulate('change', {
     target: { value: testTodoText }
   });
   todoForm.simulate('submit');
-
   return flushAllPromises().then(() => {
 
-    // Clear input
-    expect(todoInput.props().value.length).toBe(0);
+    // delete todo
+    const deleteBtn = wrapper.find('button.delete-button');
+    deleteBtn.simulate('click');
 
     // Check Redux state and UI
     const todos = store.getState().todos;
-    expect(todos.length).toBe(1);
-    expect(todos[0].text).toEqual(testTodoText);
-    expect(wrapper.find(TodoItem).length).toBe(1);
+    expect(todos.length).toBe(0);
+    expect(wrapper.find(TodoItem).length).toBe(0);
   });
 });

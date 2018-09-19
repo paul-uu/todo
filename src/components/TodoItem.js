@@ -16,7 +16,7 @@ const TodoItem = (props) => {
       <Paper className='Paper'>
         <span>{ props.todo.text }</span>
         <IconButton 
-          className='icon-button'
+          className='icon-button delete-button'
           color='default'
           tooltip='Delete Todo'
           onClick={() => props.dispatch(removeTodo(props.todo.id))} 
