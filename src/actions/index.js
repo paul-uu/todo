@@ -4,18 +4,30 @@ import {
   REMOVE_TODO,
   TOGGLE_TODO,
   SET_VISIBILITY_FILTER,
-  AUTH_USER_SET
+  AUTH_USER_SET,
+  CREATE_USER
 } from '../constants';
 import { db } from '../firebase';
 
-export const addTodo = todo => ({
-  type: ADD_TODO,
-  todo
-});
+export const addTodo = todo => (dispatch, getState, { getFirebase, getFirestore }) => {
+  const firestore = getFirestore();
+  firestore.collection('todos').add(todo)
+    .then(() => {
+      dispatch({
+        type: ADD_TODO,
+        todo
+      });
+    }).catch(err => {
+      console.error(err);
+      // dispatch({ type: ADD_TODO_ERROR, error: err})
+    })
+};
+
 export const setUserTodos = todos => ({
   type: SET_USER_TODOS,
   todos
 });
+
 export const removeTodo = id => ({
   type: REMOVE_TODO,
   id
@@ -39,7 +51,7 @@ export const setAuthUser = user => {
 export const userAuthenticated = user => {
   return dispatch => {
     dispatch(setAuthUser(user));
-      dispatch(setAuthUserData(user));
+    //dispatch(setAuthUserData(user));
   }
 }
 export const setAuthUserData = user => {

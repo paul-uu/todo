@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
-import VisibilityFilter from './VisibilityFilter'
+import VisibilityFilter from './VisibilityFilter';
+import { firestoreConnect } from 'react-redux-firebase';
 
 import {
   SHOW_ALL,
@@ -10,7 +12,7 @@ import {
   SHOW_COMPLETED
 } from '../constants';
 
-const filterTodos = (todos, filter) => {
+const filterTodos = (todos = [], filter) => {
   switch (filter) {
     case SHOW_ACTIVE:
       return todos.filter(todo => !todo.complete);
@@ -22,14 +24,21 @@ const filterTodos = (todos, filter) => {
   }
 }
 
-export const TodoList = props => {
+export const TodoList = (props = {}) => {
+  const { todos } = props;
   return (
     <div>
       <ul className='todo-list'>
       {
-        (props.todos.length > 0) && props.todos.map(todo => 
-          <TodoItem todo={todo} key={todo.id} />
-        )
+        todos && Object.keys(todos).map(id => {
+          if (todos[id] !== null) {
+            return (
+              <TodoItem 
+                key={id}
+                todo={todos[id]} />
+            )
+          }
+        })
       }
       </ul>
       <VisibilityFilter />
@@ -38,12 +47,15 @@ export const TodoList = props => {
 }
 
 TodoList.propTypes = {
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state) {
-  return {
-    todos: filterTodos(state.todos, state.visibilityFilter)
-  }
-}
-export default connect(mapStateToProps)(TodoList);
+const mapStateToProps = state => ({
+  //todos: filterTodos(state.firestore.data.todos, state.visibilityFilter)
+  todos: state.firestore.data.todos
+})
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect( [{ collection: 'todos' }] ) 
+)(TodoList);
