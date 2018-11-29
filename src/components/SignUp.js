@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-
 import { auth, db } from '../firebase';
 import * as routes from '../constants/routes';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { signUp } from '../actions';
 
-const SignUpPage = ({ history }) =>
-  <div className='content-container'>
-    <h1>SignUp</h1>
-    <SignUpForm history={history} />
-  </div>
+const SignUpPage = (props) => {
+  const { history, signUp } = props;
+  return (
+    <div className='content-container'>
+      <h1>SignUp</h1>
+      <SignUpForm history={history} signUp={signUp} />
+    </div>
+  )
+}
 
 const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
@@ -26,26 +32,12 @@ class SignUpForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
-    
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { username, email, passwordOne } = this.state;
-    const { history } = this.props;
-
-    auth.doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
-
-        db.doCreateUser(authUser.user.uid, username, email)
-          .then(() => {
-            this.setState(() => ({...INITIAL_STATE}));
-            history.push(routes.MYTODOS);
-          });
-      })
-      .catch(error => {
-        this.setState(byPropKey('error', error));
-      })
+    this.props.signUp(this.state);
   }
 
   render() {
@@ -106,10 +98,17 @@ const SignUpLink = () =>
     <Link to={routes.SIGN_UP}>Sign Up</Link>
   </p>
 
+const mapDispatchToProps = dispatch => ({
+  signUp: newUser => dispatch(signUp(newUser))
+})
+
 /* withRouter is a HOC that is given access to the Router properties */
 /* in this case, the history object is used in the SignUpPage component */
 /* which enables redirects to other pages/routes */
-export default withRouter(SignUpPage);
+export default compose(
+  withRouter,
+  connect(null, mapDispatchToProps)
+)(SignUpPage);
 
 export {
   SignUpForm,

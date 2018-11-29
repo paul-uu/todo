@@ -8,6 +8,7 @@ import {
   CREATE_USER
 } from '../constants';
 import { db } from '../firebase';
+//import { FirebaseAuth } from '@firebase/auth-types';
 
 export const addTodo = todo => (dispatch, getState, { getFirebase, getFirestore }) => {
   const firestore = getFirestore();
@@ -22,6 +23,26 @@ export const addTodo = todo => (dispatch, getState, { getFirebase, getFirestore 
       // dispatch({ type: ADD_TODO_ERROR, error: err})
     })
 };
+
+export const signUp = newUser => (dispatch, getState, { getFirebase, getFirestore }) => {
+  const firebase = getFirebase();
+  const firestore = getFirestore();
+
+  firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.passwordOne)
+    .then(response => {
+      return firestore.collection('users').doc(response.user.uid).set({
+        email: newUser.email,
+        username: newUser.username,
+        todos: []
+      });
+    })
+    .then(() => {
+      dispatch({ type: 'SIGNUP_SUCCESS' });
+    })
+    .catch(err => {
+      dispatch({ type: 'SIGNUP_ERROR', error: err });
+    })
+}
 
 export const setUserTodos = todos => ({
   type: SET_USER_TODOS,
@@ -54,6 +75,10 @@ export const userAuthenticated = user => {
     //dispatch(setAuthUserData(user));
   }
 }
+
+
+
+
 export const setAuthUserData = user => {
   return dispatch => {
     dispatch(fetchAuthUserTodos(user))
