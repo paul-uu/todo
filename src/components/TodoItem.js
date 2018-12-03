@@ -8,19 +8,16 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
 
 const TodoItem = (props) => {
-  console.log( typeof props.createdOn )
+  console.log(props);
   return (
-    <li className='todo-item'
-      style={{textDecoration: props.todo.isComplete ? 'line-through' : 'none'}}
-      onClick={() => props.dispatch(toggleTodo(props.todo.id))}>
-      
+    <li className='todo-item' style={{textDecoration: props.todo.isComplete ? 'line-through' : 'none'}}>
       <Paper className='Paper'>
-        <span>{ props.todo.text }</span>
+        <span onClick={ () => props.toggleTodo(props.todo.id) }>{ props.todo.text }</span>
         <IconButton 
           className='icon-button delete-button'
           color='default'
           tooltip='Delete Todo'
-          onClick={() => props.dispatch(removeTodo(props.todo.id))} 
+          onClick={ () => props.removeTodo(props.todo.id) } 
         >
           <DeleteIcon />
         </IconButton>
@@ -37,4 +34,9 @@ TodoItem.propTypes = {
   }) 
 }
 
-export default connect()(TodoItem);
+const mapDispatchToProps = dispatch => ({
+  toggleTodo: id => dispatch(toggleTodo(id)),
+  removeTodo: id => dispatch(removeTodo(id))
+})
+
+export default connect(null, mapDispatchToProps)(TodoItem);
