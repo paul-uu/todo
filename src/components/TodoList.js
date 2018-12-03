@@ -24,7 +24,7 @@ const filterTodos = (todos = [], filter) => {
   }
 }
 
-export const TodoList = (props = {}) => {
+export const TodoList = (props = []) => {
   const { todos } = props;
   return (
     <div>
@@ -47,15 +47,21 @@ export const TodoList = (props = {}) => {
 }
 
 TodoList.propTypes = {
-  todos: PropTypes.object.isRequired
+  todos: PropTypes.array.isRequired
 }
 
-const mapStateToProps = state => ({
-  //todos: filterTodos(state.firestore.data.todos, state.visibilityFilter)
-  todos: state.firestore.data.todos
-})
+const mapStateToProps = state => {
+  const uid = state.firebase.auth.uid;
+  const todos = state.firestore.data.users
+    ? state.firestore.data.users[uid].todos
+    : []
+  
+  return {
+    todos: filterTodos(todos, state.VisibilityFilter)
+  }
+}
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect( [{ collection: 'todos' }] ) 
+  firestoreConnect( [{ collection: 'users' }] ) 
 )(TodoList);

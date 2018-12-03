@@ -31,8 +31,9 @@ class TodoForm extends React.Component {
       const { dispatch } = this.props;
       dispatch(addTodo({
         text: this.state.todo,
-        id: generateId(),
-        complete: false
+        isComplete: false,
+        createdOn: new Date(),
+        id: generateId()
       }));
       this.setState({ todo: '', hasError: false });
     }

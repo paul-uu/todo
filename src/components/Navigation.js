@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { compose } from 'redux'; 
 import { connect } from 'react-redux';
 import SignOutLink from './SignOut';
 import * as routes from '../constants/routes';
 import PropTypes from 'prop-types';
+import { firestoreConnect } from 'react-redux-firebase';
 
 const Navigation = ({ authUser, todosQty }) =>
   <nav className='nav'>
@@ -46,9 +48,21 @@ const NavigationNonAuth = props => {
 }
 const NavigationNonAuthWithRouter = withRouter(NavigationNonAuth);
 
-const mapStateToProps = state => ({
-  authUser: state.session.authUser,
-  todosQty: state.todos.length
-});
 
-export default withRouter(connect(mapStateToProps)(Navigation));
+const mapStateToProps = state => {
+  const uid = state.firebase.auth.uid;
+  const todos = state.firestore.data.users
+    ? state.firestore.data.users[uid].todos
+    : [];
+  const todosQty = todos.length;
+  
+  return {
+    authUser: state.session.authUser,
+    todosQty
+  }
+}
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect( [{ collection: 'users' }] ) 
+)(Navigation);

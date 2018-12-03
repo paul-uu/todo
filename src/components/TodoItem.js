@@ -8,9 +8,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
 
 const TodoItem = (props) => {
+  console.log( typeof props.createdOn )
   return (
     <li className='todo-item'
-      style={{textDecoration: props.todo.complete ? 'line-through' : 'none'}}
+      style={{textDecoration: props.todo.isComplete ? 'line-through' : 'none'}}
       onClick={() => props.dispatch(toggleTodo(props.todo.id))}>
       
       <Paper className='Paper'>
@@ -30,9 +31,9 @@ const TodoItem = (props) => {
 
 TodoItem.propTypes = {
   todo: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    complete: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired
+    isComplete: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired,
+    //createdOn: PropTypes.instanceOf(Date)
   }) 
 }
 

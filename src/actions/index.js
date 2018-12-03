@@ -12,7 +12,21 @@ import { db } from '../firebase';
 
 export const addTodo = todo => (dispatch, getState, { getFirebase, getFirestore }) => {
   const firestore = getFirestore();
-  firestore.collection('todos').add(todo)
+  const firebase = getFirebase();
+
+  const uid = getState().firebase.auth.uid;
+  const usersRef = firestore.collection('users');
+  const userRef = usersRef.doc(uid);
+
+
+  userRef.update({ 
+    todos:firebase.firestore.FieldValue.arrayUnion(todo)
+  }).then(() => { console.log('great success'); });
+
+  //todosRef.add(todo).then(() => { console.log('success?') });
+
+  /*
+  firestore.collection('users').add(todo)
     .then(() => {
       dispatch({
         type: ADD_TODO,
@@ -22,6 +36,7 @@ export const addTodo = todo => (dispatch, getState, { getFirebase, getFirestore 
       console.error(err);
       // dispatch({ type: ADD_TODO_ERROR, error: err})
     })
+    */
 };
 
 export const signUp = newUser => (dispatch, getState, { getFirebase, getFirestore }) => {
