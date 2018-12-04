@@ -12,7 +12,7 @@ import {
   SHOW_COMPLETED
 } from '../constants';
 
-const filterTodos = (todos = [], filter) => {
+const filterTodos = (todos = {}, filter) => {
   switch (filter) {
     case SHOW_ACTIVE:
       return todos.filter(todo => !todo.isComplete);
@@ -24,7 +24,7 @@ const filterTodos = (todos = [], filter) => {
   }
 }
 
-export const TodoList = (props = []) => {
+export const TodoList = (props = {}) => {
   const { todos } = props;
   return (
     <div>
@@ -35,6 +35,7 @@ export const TodoList = (props = []) => {
             return (
               <TodoItem 
                 key={id}
+                id={id}
                 todo={todos[id]} />
             )
           }
@@ -47,17 +48,18 @@ export const TodoList = (props = []) => {
 }
 
 TodoList.propTypes = {
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
   const uid = state.firebase.auth.uid;
   const todos = state.firestore.data.users
     ? state.firestore.data.users[uid].todos
-    : []
+    : {}
   
   return {
-    todos: filterTodos(todos, state.visibilityFilter)
+    //todos: filterTodos(todos, state.visibilityFilter)
+    todos
   }
 }
 

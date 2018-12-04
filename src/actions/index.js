@@ -11,34 +11,43 @@ import {
   CREATE_USER
 } from '../constants';
 import { db } from '../firebase';
+import generateId from '../utilities/generateId';
 
 export const addTodo = todo => (dispatch, getState, { getFirebase, getFirestore }) => {
   const firestore = getFirestore();
   const firebase = getFirebase();
   const uid = getState().firebase.auth.uid;
   const userRef = firestore.collection('users').doc(uid);
-  userRef.update({ 
-    todos: firebase.firestore.FieldValue.arrayUnion(todo)
-  }).then(() => {
-    dispatch({ type: ADD_TODO });
-  }).catch(err => {
-    dispatch({ type: ADD_TODO_ERROR, error: err });
+
+  userRef.get().then(doc => {
+    let todos = doc.data().todos;
+    userRef.update({
+      todos: {
+        ...todos,
+        [generateId()]: todo
+      }
+    }).then(() => {
+      dispatch({ type: ADD_TODO });
+    }).catch(err => {
+      dispatch({ type: ADD_TODO_ERROR, error: err });
+    });
+    
+
   });
 };
 
-export const removeTodo = id => (dispatch, getState, { getFirestore }) => {
+export const removeTodo = id => (dispatch, getState, { getFirebase, getFirestore }) => {
   const firestore = getFirestore();
+  const firebase = getFirebase();
   const uid = getState().firebase.auth.uid;
   const userRef = firestore.collection('users').doc(uid);
-  userRef.get().then(doc => {
-    const updatedTodos = doc.data().todos.filter(todo => todo.id !== id);
-    userRef.update({
-      todos: updatedTodos
-    }).then(() => {
-      dispatch({ type: REMOVE_TODO })
-    }).catch(err => {
-      dispatch({ type: REMOVE_TODO_ERROR, error: err })
-    });
+
+  userRef.update({
+    [`todos.${id}`]: firebase.firestore.FieldValue.delete()
+  }).then(() => {
+    dispatch({ type: REMOVE_TODO })
+  }).catch(err => {
+    dispatch({ type: REMOVE_TODO_ERROR, error: err })
   });
 };
 
@@ -47,14 +56,9 @@ export const toggleTodo = id => (dispatch, getState, { getFirebase, getFirestore
   const uid = getState().firebase.auth.uid;
   const userRef = firestore.collection('users').doc(uid);
   userRef.get().then(doc => {
-    const updatedTodos = doc.data().todos.map(todo => {
-      if (todo.id === id) 
-        return Object.assign({}, todo, { isComplete: !todo.isComplete })
-      else
-        return todo;
-    });
+    const isComplete = doc.data().todos[id].isComplete;
     userRef.update({
-      todos: updatedTodos
+      [`todos.${id}.isComplete`]: !isComplete
     }).then(() => {
       dispatch({ type: TOGGLE_TODO })
     }).catch(err => {
@@ -62,17 +66,6 @@ export const toggleTodo = id => (dispatch, getState, { getFirebase, getFirestore
     })
   })
 };
-
-/* 
-TODO: convert Firestore array of todos to an object:
-{
-  id: { completedOn, text, isComplete },
-  ...
-}
-
-problem: atm, deleting/toggling a todo required iterating over the entire array
-solution: make todos index-able, remove need to iterate, can remove/update directly 
-*/
 
 export const setFilter = (filter) => ({
   type: SET_VISIBILITY_FILTER,
@@ -88,7 +81,8 @@ export const signUp = newUser => (dispatch, getState, { getFirebase, getFirestor
       return firestore.collection('users').doc(response.user.uid).set({
         email: newUser.email,
         username: newUser.username,
-        todos: []
+        todos: [],
+        newTodos: {}
       });
     })
     .then(() => {

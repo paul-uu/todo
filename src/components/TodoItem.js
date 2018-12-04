@@ -8,16 +8,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
 
 const TodoItem = (props) => {
-  console.log(props);
   return (
     <li className='todo-item' style={{textDecoration: props.todo.isComplete ? 'line-through' : 'none'}}>
       <Paper className='Paper'>
-        <span onClick={ () => props.toggleTodo(props.todo.id) }>{ props.todo.text }</span>
+        <span onClick={ () => props.toggleTodo(props.id) }>{ props.todo.text }</span>
         <IconButton 
           className='icon-button delete-button'
           color='default'
           tooltip='Delete Todo'
-          onClick={ () => props.removeTodo(props.todo.id) } 
+          onClick={ () => props.removeTodo(props.id) } 
         >
           <DeleteIcon />
         </IconButton>
