@@ -53,10 +53,7 @@ TodoList.propTypes = {
 
 const mapStateToProps = state => {
   const uid = state.firebase.auth.uid;
-  const todos = state.firestore.data.users
-    ? state.firestore.data.users[uid].todos
-    : {}
-  
+  const todos = uid ? state.firestore.data.users[uid].todos : {};
   return {
     //todos: filterTodos(todos, state.visibilityFilter)
     todos
