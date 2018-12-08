@@ -13,15 +13,27 @@ import {
 } from '../constants';
 
 const filterTodos = (todos = {}, filter) => {
+  let isComplete
   switch (filter) {
     case SHOW_ACTIVE:
-      return todos.filter(todo => !todo.isComplete);
+      isComplete = false;
+      return filterBy(todos, isComplete);
     case SHOW_COMPLETED:
-      return todos.filter(todo => todo.isComplete);
+      isComplete = true;
+      return filterBy(todos, isComplete); 
     case SHOW_ALL:
     default:
       return todos;
   }
+}
+
+const filterBy = (todos, isComplete) => {
+  let filteredTodos = {};
+  for (let todoId in todos) {
+    if (todos[todoId].isComplete === isComplete)
+      filteredTodos[todoId] = todos[todoId];
+  }
+  return filteredTodos;
 }
 
 export const TodoList = (props = {}) => {
@@ -61,8 +73,7 @@ const mapStateToProps = state => {
     todos = {};
   }
   return {
-    //todos: filterTodos(todos, state.visibilityFilter)
-    todos
+    todos: filterTodos(todos, state.visibilityFilter)
   }
 }
 
