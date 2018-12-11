@@ -4,16 +4,26 @@ import PropTypes from 'prop-types';
 import { toggleTodo, removeTodo } from '../actions';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment';
 
 import Paper from '@material-ui/core/Paper';
 
 const TodoItem = (props) => {
   return (
-    <li className='todo-item' style={{textDecoration: props.todo.isComplete ? 'line-through' : 'none'}}>
+    <li className='todo-item'>
       <Paper className='Paper'>
-        <span onClick={ () => props.toggleTodo(props.id) }>{ props.todo.text }</span>
+        <div
+          onClick={ () => props.toggleTodo(props.id) }
+          style={{textDecoration: props.todo.isComplete ? 'line-through' : 'none'}}
+        >
+          { props.todo.text }
+        </div>
+        <div className='todo-item__secondary-text'>
+          { moment(props.todo.createdOn.toDate()).calendar() }
+        </div>
+
         <IconButton 
-          className='icon-button delete-button'
+          className='icon-button todo-item__delete-button'
           color='default'
           tooltip='Delete Todo'
           onClick={ () => props.removeTodo(props.id) } 

@@ -1,14 +1,30 @@
 /* TodoItem */
+$delete-button-width: 48px;
+$delete-button-height: 48px;
+
 .todo-item {
   list-style: none;
   cursor: pointer;
   margin-bottom: 15px;
 
   .Paper {
-    padding: 0 15px;
+    padding: 15px calc( #{$delete-button-width} + 15px) 15px 15px;;
+    position: relative;
   }
 
-  .icon-button {
-    vertical-align: middle;
+  &__secondary-text {
+    color: #aaa;
+    font-weight: 300;
+    font-size: 13px;
   }
+
+  &__delete-button {
+    position: absolute !important;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $delete-button-width;
+    height: $delete-button-height;
+  }
+
 }
