@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 import VisibilityFilter from './VisibilityFilter';
 import { firestoreConnect } from 'react-redux-firebase';
+import withAuthorization from './withAuthorization';
 
 import {
   SHOW_ALL,
@@ -36,8 +37,7 @@ const filterBy = (todos, isComplete) => {
   return filteredTodos;
 }
 
-export const TodoList = (props = {}) => {
-  const { todos } = props;
+export const TodoList = ({ todos }) => {
   return (
     <div>
       <ul className='todo-list'>
@@ -72,11 +72,15 @@ const mapStateToProps = state => {
     todos = {};
   }
   return {
-    todos: filterTodos(todos, state.visibilityFilter)
+    todos: filterTodos(todos, state.visibilityFilter),
+    auth: state.session.authUser
   }
 }
 
+const authCondition = authUser => !!authUser;
+
 export default compose(
+  withAuthorization(authCondition),
   connect(mapStateToProps),
   firestoreConnect( [{ collection: 'users' }] ) 
 )(TodoList);
