@@ -2,7 +2,6 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import generateId from '../utilities/generateId';
 import { addTodo } from '../actions';
 import PropTypes from 'prop-types';
 
@@ -65,7 +64,7 @@ class TodoForm extends React.Component {
           label={hasError ? 'Please add a new todo' : 'Add new todo'}
           margin='normal'
         />
-        <Button type='submit' variant='contained' color='default'>Add Todo</Button>
+        <Button type='submit' className='todo-form__button' variant='contained' color='default'>Add Todo</Button>
       </form>
     );
   }

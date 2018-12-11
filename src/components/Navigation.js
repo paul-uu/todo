@@ -7,21 +7,22 @@ import * as routes from '../constants/routes';
 import PropTypes from 'prop-types';
 import { firestoreConnect } from 'react-redux-firebase';
 
-const Navigation = ({ authUser, todosQty }) =>
+const Navigation = ({ authUser, todosQty, username }) => 
   <nav className='nav'>
   {
-    authUser 
-      ? <NavigationAuthWithRouter todosQty={todosQty} />
+    authUser
+      ? <NavigationAuthWithRouter todosQty={todosQty} username={username} />
       : <NavigationNonAuthWithRouter />
   }
   </nav>
 
 const NavigationAuth = props => {
   const path = props.location.pathname;
+  const username = `${props.username}'s` || 'My'
   return (
     <div>
       <ul>
-        <li><Link className={'link ' + (path === routes.MYTODOS ? 'selected' : '')} to={routes.MYTODOS}>My Todos ({props.todosQty})</Link></li>
+        <li><Link className={'link ' + (path === routes.MYTODOS ? 'selected' : '')} to={routes.MYTODOS}>{username} Todos ({props.todosQty})</Link></li>
         <li><Link className={'link ' + (path === routes.ACCOUNT ? 'selected' : '')} to={routes.ACCOUNT}>Account</Link></li>
       </ul>
       <SignOutLink />
@@ -50,18 +51,21 @@ const NavigationNonAuthWithRouter = withRouter(NavigationNonAuth);
 
 
 const mapStateToProps = state => {
-  let todos, todosQty;
+  let todos, 
+      todosQty = 0, 
+      username = null;
+
   if ('users' in state.firestore.data && state.firebase.auth.uid) {
     const uid = state.firebase.auth.uid;
     todos = state.firestore.data.users[uid].todos;
     todosQty = Object.keys(todos).length;
-  } else {
-    todosQty = 0;
+    username = state.firestore.data.users[uid].username;
   }
 
   return {
     authUser: state.session.authUser,
-    todosQty
+    todosQty,
+    username
   }
 }
 

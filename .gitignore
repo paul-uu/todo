@@ -4,6 +4,7 @@
 # production
 .sass-cache/
 src/**/*.css
+*.css.map
 /build
 src/firebase/firebaseConfig.js
 
