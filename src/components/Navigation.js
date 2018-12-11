@@ -51,7 +51,7 @@ const NavigationNonAuthWithRouter = withRouter(NavigationNonAuth);
 
 const mapStateToProps = state => {
   let todos, todosQty;
-  if ('users' in state.firestore.data) {
+  if ('users' in state.firestore.data && state.firebase.auth.uid) {
     const uid = state.firebase.auth.uid;
     todos = state.firestore.data.users[uid].todos;
     todosQty = Object.keys(todos).length;

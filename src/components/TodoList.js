@@ -64,7 +64,6 @@ TodoList.propTypes = {
 }
 
 const mapStateToProps = state => {
-  console.log(state.firestore.data);
   let todos;
   if ( 'users' in state.firestore.data ) {
     const uid = state.firebase.auth.uid;
