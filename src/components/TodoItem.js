@@ -9,13 +9,15 @@ import moment from 'moment';
 import Paper from '@material-ui/core/Paper';
 
 const TodoItem = (props) => {
+  const completeStatus = props.todo.isComplete
+    ? <i className="fa fa-check" aria-hidden="true"></i> 
+    : null;
+
   return (
-    <li className='todo-item'>
+    <li className={`todo-item ${props.todo.isComplete ? 'todo-item__complete' : ''}`}>
       <Paper className='Paper'>
-        <div
-          onClick={ () => props.toggleTodo(props.id) }
-          style={{textDecoration: props.todo.isComplete ? 'line-through' : 'none'}}
-        >
+        { completeStatus }
+        <div className='todo-item__primary-text' onClick={ () => props.toggleTodo(props.id) }>
           { props.todo.text }
         </div>
         <div className='todo-item__secondary-text'>

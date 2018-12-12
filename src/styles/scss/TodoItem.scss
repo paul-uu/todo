@@ -8,8 +8,21 @@ $delete-button-height: 48px;
   margin-bottom: 15px;
 
   .Paper {
-    padding: 15px calc( #{$delete-button-width} + 15px) 15px 15px;;
+    padding: 15px calc( #{$delete-button-width} + 30px) 15px 30px;;
     position: relative;
+  }
+
+  &.todo-item__complete {
+    color: #999;
+    .fa {
+      position: absolute;
+      left: 9px;
+      color: green;
+    }
+  }
+
+  &__primary-text {
+    margin-bottom: 5px;
   }
 
   &__secondary-text {
