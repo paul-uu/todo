@@ -52,23 +52,44 @@ class TodoList extends Component {
     this.state = {
       sortBy: 'Newer'
     }
-    this.setSort = this.setSort.bind(this);
+    this.setSortByDate = this.setSortByDate.bind(this);
+    this.sortByDate = this.sortByDate.bind(this);
   }
 
-  setSort(e) {
+  setSortByDate(e) {
     this.setState({ sortBy: e.target.value });
+  }
+  sortByDate(todos) {
+    let todosArr = this.todosObjectToArray(todos);
+    let sortedTodos = todosArr.sort((a, b) => { 
+      if (this.state.sortBy === 'Newer')
+        return b[1].createdOn.seconds - a[1].createdOn.seconds;
+      else if (this.state.sortBy === 'Older')
+        return a[1].createdOn.seconds - b[1].createdOn.seconds;
+    });
+    return sortedTodos;
+  }
+
+  todosObjectToArray(todos) {
+    let arr = [];
+    for ( let todoId in todos ) {
+      arr.push([todoId , todos[todoId]]);
+    }
+    return arr;
   }
 
   render() {
-    const { todos } = this.props;
+    const todos = this.sortByDate(this.props.todos);
     return (
       <div>
+
+        <VisibilityFilter />
 
         <FormControl className='formControl'>
           <InputLabel htmlFor="age-helper">Sort By Date</InputLabel>
           <Select
             value={this.state.sortBy}
-            onChange={this.setSort}
+            onChange={this.setSortByDate}
             input={<Input name="age" id="age-helper" />}
           >
             <MenuItem value={'Newer'}>Newer</MenuItem>
@@ -79,19 +100,18 @@ class TodoList extends Component {
 
         <ul className='todo-list'>
         {
-          todos && Object.keys(todos).map(id => {
-            if (todos[id] !== null) {
+          todos && todos.map(todo => {
+            if (todo) {
               return (
                 <TodoItem 
-                  key={id}
-                  id={id}
-                  todo={todos[id]} />
+                  key={todo[0]}
+                  id={todo[0]}
+                  todo={todo[1]} />
               )
             }
           })
         }
         </ul>
-        <VisibilityFilter />
       </div>
     )
   }
