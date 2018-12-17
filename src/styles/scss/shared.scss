@@ -2,6 +2,7 @@
 
 .content-container {
   width: $main-container-width;
+  max-width: $app-max-width;
   margin: 15px auto 0 auto;
 }
 

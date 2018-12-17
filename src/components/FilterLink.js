@@ -14,7 +14,7 @@ const FilterLink = (props) => {
       href='#' 
       className={'link visibility-filter__link ' + isFilterSelected}
       onClick={handleClick} >
-      {props.text}
+      {props.text} {props.count}
     </a>
   )
 }

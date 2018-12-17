@@ -1,4 +1,8 @@
 /* TodoList */
 .todo-list {
   padding: 0;
+  clear: both;
 }
+
+.visibility-filter    { float: left;  }
+.formControl--sort-by { float: right; }

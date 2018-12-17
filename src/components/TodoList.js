@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
@@ -52,9 +52,36 @@ class TodoList extends Component {
     this.state = {
       sortBy: 'Newer'
     }
+    this.filterTodos = this.filterTodos.bind(this);
+    this.filterBy = this.filterBy.bind(this);
     this.setSortByDate = this.setSortByDate.bind(this);
     this.sortByDate = this.sortByDate.bind(this);
+    this.todosObjectToArray = this.todosObjectToArray.bind(this);
   }
+
+  filterTodos(todos = {}, filter) {
+    let isComplete;
+    switch (filter) {
+      case SHOW_ACTIVE:
+        isComplete = false;
+        return filterBy(todos, isComplete);
+      case SHOW_COMPLETED:
+        isComplete = true;
+        return filterBy(todos, isComplete); 
+      case SHOW_ALL:
+      default:
+        return todos;
+    }
+  }
+  filterBy(todos, isComplete) {
+    let filteredTodos = {};
+    for (let todoId in todos) {
+      if (todos[todoId].isComplete === isComplete)
+        filteredTodos[todoId] = todos[todoId];
+    }
+    return filteredTodos;
+  }
+
 
   setSortByDate(e) {
     this.setState({ sortBy: e.target.value });
@@ -70,6 +97,17 @@ class TodoList extends Component {
     return sortedTodos;
   }
 
+  // todosObjectToArray: changes todos data structure from:
+  // todos: {
+  //   todoId: { isComplete, text, timestamp },
+  //   todoId: { ... }  
+  // }
+  // to:
+  // todos: [
+  //   [ todoId, { isComplete, text, timestamp } ],
+  //   [ todoId, { ... } ]
+  // ]
+  // to utilize array methods, like sort
   todosObjectToArray(todos) {
     let arr = [];
     for ( let todoId in todos ) {
@@ -79,14 +117,16 @@ class TodoList extends Component {
   }
 
   render() {
-    const todos = this.sortByDate(this.props.todos);
+    const filteredTodos = this.filterTodos(this.props.todos, this.props.visibilityFilter);
+    const todos = this.sortByDate(filteredTodos) || [];
+
     return (
-      <div>
+      <React.Fragment>
 
-        <VisibilityFilter />
+        <VisibilityFilter todos={ this.todosObjectToArray(this.props.todos) } />
 
-        <FormControl className='formControl'>
-          <InputLabel htmlFor="age-helper">Sort By Date</InputLabel>
+        <FormControl className='formControl formControl--sort-by'>
+          <InputLabel htmlFor="age-helper">Sort By</InputLabel>
           <Select
             value={this.state.sortBy}
             onChange={this.setSortByDate}
@@ -112,7 +152,8 @@ class TodoList extends Component {
           })
         }
         </ul>
-      </div>
+
+      </React.Fragment>
     )
   }
 }
@@ -130,7 +171,9 @@ const mapStateToProps = state => {
     todos = {};
   }
   return {
-    todos: filterTodos(todos, state.visibilityFilter),
+    //todos: filterTodos(todos, state.visibilityFilter),
+    todos,
+    visibilityFilter: state.visibilityFilter,
     auth: state.session.authUser
   }
 }
