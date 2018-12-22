@@ -7,15 +7,13 @@ import {
   TOGGLE_TODO,
   TOGGLE_TODO_ERROR,
   SET_VISIBILITY_FILTER,
-  AUTH_USER_SET,
-  CREATE_USER
+  AUTH_USER_SET
 } from '../constants';
 import { db } from '../firebase';
 import generateId from '../utilities/generateId';
 
-export const addTodo = todo => (dispatch, getState, { getFirebase, getFirestore }) => {
+export const addTodo = todo => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore();
-  const firebase = getFirebase();
   const uid = getState().firebase.auth.uid;
   const userRef = firestore.collection('users').doc(uid);
 
@@ -31,7 +29,6 @@ export const addTodo = todo => (dispatch, getState, { getFirebase, getFirestore 
     }).catch(err => {
       dispatch({ type: ADD_TODO_ERROR, error: err });
     });
-    
 
   });
 };

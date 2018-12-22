@@ -10,35 +10,41 @@ class VisibilityFilter extends Component {
   constructor(props) {
     super(props);
     this.getTodoStatusCount = this.getTodoStatusCount.bind(this);
-    this.todosAllCount = 0;
-    this.todosActiveCount = 0;
-    this.todosCompletedCount = 0;
+  
+    this.state = {
+      todosAllCount: 0,
+      todosActiveCount : 0,
+      todosCompletedCount : 0
+    }
   }
 
   componentDidMount() {
     this.getTodoStatusCount(this.props.todos);
   }
 
-  componentDidUpdate() {
-    this.getTodoStatusCount(this.props.todos);
+  componentDidUpdate(prevProps) {
+    if (prevProps.todos !== this.props.todos) {
+      this.getTodoStatusCount(this.props.todos);
+    }
   }
 
   getTodoStatusCount(todos = []) {
-    console.log(todos);
     let count = 0,
-        isComplete = 0,
-        isActive = 0;
+        completeTodos = 0,
+        activeTodos = 0;
 
-    todos.map(todo => {
+    todos.forEach(todo => {
       count++;
-      if (todo[1].isComplete)
-        isComplete++;
-      else
-        isActive++;
+      todo[1].completeTodos
+        ? completeTodos++ 
+        : activeTodos++;
     });
-    this.todosAllCount = count;
-    this.todosActiveCount = isActive;
-    this.todosCompletedCount = isComplete;
+
+   this.setState({
+    todosAllCount: count,
+    todosActiveCount : activeTodos,
+    todosCompletedCount : completeTodos
+   })
 
   }
 
@@ -49,17 +55,17 @@ class VisibilityFilter extends Component {
           className='visibility-filter__link' 
           text='All' 
           filter={ SHOW_ALL } 
-          count={ this.todosAllCount } />
+          count={ this.state.todosAllCount } />
         <FilterLink 
           className='visibility-filter__link' 
           text='Active' 
           filter={ SHOW_ACTIVE }
-          count={ this.todosActiveCount } />
+          count={ this.state.todosActiveCount } />
         <FilterLink 
           className='visibility-filter__link' 
           text='Completed' 
           filter={SHOW_COMPLETED} 
-          count={ this.todosCompletedCount }/>
+          count={ this.state.todosCompletedCount }/>
       </div>
     )
   }

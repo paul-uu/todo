@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
@@ -18,31 +18,6 @@ import {
   SHOW_ACTIVE,
   SHOW_COMPLETED
 } from '../constants';
-
-const filterTodos = (todos = {}, filter) => {
-  let isComplete
-  switch (filter) {
-    case SHOW_ACTIVE:
-      isComplete = false;
-      return filterBy(todos, isComplete);
-    case SHOW_COMPLETED:
-      isComplete = true;
-      return filterBy(todos, isComplete); 
-    case SHOW_ALL:
-    default:
-      return todos;
-  }
-}
-
-const filterBy = (todos, isComplete) => {
-  let filteredTodos = {};
-  for (let todoId in todos) {
-    if (todos[todoId].isComplete === isComplete)
-      filteredTodos[todoId] = todos[todoId];
-  }
-  return filteredTodos;
-}
-
 
 
 class TodoList extends Component { 
@@ -64,10 +39,10 @@ class TodoList extends Component {
     switch (filter) {
       case SHOW_ACTIVE:
         isComplete = false;
-        return filterBy(todos, isComplete);
+        return this.filterBy(todos, isComplete);
       case SHOW_COMPLETED:
         isComplete = true;
-        return filterBy(todos, isComplete); 
+        return this.filterBy(todos, isComplete); 
       case SHOW_ALL:
       default:
         return todos;
@@ -91,11 +66,12 @@ class TodoList extends Component {
     let sortedTodos = todosArr.sort((a, b) => { 
       if (this.state.sortBy === 'Newer')
         return b[1].createdOn.seconds - a[1].createdOn.seconds;
-      else if (this.state.sortBy === 'Older')
+      else
         return a[1].createdOn.seconds - b[1].createdOn.seconds;
     });
     return sortedTodos;
   }
+
 
   // todosObjectToArray: changes todos data structure from:
   // todos: {
@@ -108,11 +84,9 @@ class TodoList extends Component {
   //   [ todoId, { ... } ]
   // ]
   // to utilize array methods, like sort
-  todosObjectToArray(todos) {
-    let arr = [];
-    for ( let todoId in todos ) {
+  todosObjectToArray(todos, arr = []) {
+    for ( let todoId in todos )
       arr.push([todoId , todos[todoId]]);
-    }
     return arr;
   }
 
@@ -148,7 +122,8 @@ class TodoList extends Component {
                   id={todo[0]}
                   todo={todo[1]} />
               )
-            }
+            } else 
+              return null;
           })
         }
         </ul>
@@ -167,11 +142,10 @@ const mapStateToProps = state => {
   if ( 'users' in state.firestore.data ) {
     const uid = state.firebase.auth.uid;
     todos = uid ? state.firestore.data.users[uid].todos : {};
-  } else {
+  } else
     todos = {};
-  }
+
   return {
-    //todos: filterTodos(todos, state.visibilityFilter),
     todos,
     visibilityFilter: state.visibilityFilter,
     auth: state.session.authUser
