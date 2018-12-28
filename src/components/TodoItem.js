@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { toggleTodo, removeTodo } from '../actions';
@@ -8,40 +8,59 @@ import moment from 'moment';
 
 import Paper from '@material-ui/core/Paper';
 
-const TodoItem = (props) => {
-  const completeStatus = props.todo.isComplete
-    ? <i className="fa fa-check" aria-hidden="true"></i> 
-    : null;
+class TodoItem extends Component {
+  constructor(props) {
+    super(props);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
 
-  return (
-    <li className={`todo-item ${props.todo.isComplete ? 'todo-item__complete' : ''}`}>
-      <Paper className='Paper'>
-        { completeStatus }
-        <div className='todo-item__primary-text' onClick={ () => props.toggleTodo(props.id) }>
-          { props.todo.text }
-        </div>
-        <div className='todo-item__secondary-text'>
-          { moment(props.todo.createdOn.toDate()).calendar() }
-        </div>
+  componentWillUnmount() {
+    window.removeEventListener('click', this.handleToggle, false);
+    window.removeEventListener('click', this.handleDelete, false);
+  }
 
-        <IconButton 
-          className='icon-button todo-item__delete-button'
-          color='default'
-          tooltip='Delete Todo'
-          onClick={ () => props.removeTodo(props.id) } 
-        >
-          <DeleteIcon />
-        </IconButton>
-      </Paper>
-    </li>
-  )
+  handleToggle() {
+    this.props.toggleTodo(this.props.id);
+  }
+  handleDelete() {
+    this.props.removeTodo(this.props.id)
+  }
+
+  render() {
+    const completeStatus = this.props.todo.isComplete
+      ? <i className="fa fa-check" aria-hidden="true"></i> 
+      : null;
+
+    return (
+      <li className={`todo-item ${this.props.todo.isComplete ? 'todo-item__complete' : ''}`}>
+        <Paper className='Paper'>
+          { completeStatus }
+          <div className='todo-item__primary-text' onClick={ this.handleToggle }>
+            { this.props.todo.text }
+          </div>
+          <div className='todo-item__secondary-text'>
+            { moment(this.props.todo.createdOn.toDate()).calendar() }
+          </div>
+
+          <IconButton 
+            className='icon-button todo-item__delete-button'
+            color='default'
+            tooltip='Delete Todo'
+            onClick={ this.handleDelete } 
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Paper>
+      </li>
+    )
+  }
 }
 
 TodoItem.propTypes = {
   todo: PropTypes.shape({
     isComplete: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
-    //createdOn: PropTypes.instanceOf(Date)
   }) 
 }
 
